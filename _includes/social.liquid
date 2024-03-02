@@ -116,3 +116,6 @@
   </div>
   {% include scripts/wechatModal.liquid %}
 {% endif %}
+{% if site.cv %}
+  <a href="{{ site.cv | relative_url }}" title="CV">CV</a>
+{% endif %}

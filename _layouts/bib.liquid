@@ -68,6 +68,13 @@
             {% endif %}
           {% endfor %}
         {% endif %}
+        {% assign author_is_corr = false %}
+        {% if entry.corresponding contains author_last_name %}
+          {% if entry.corresponding contains author.first %}
+            {% assign author_is_corr = true %}
+          {% endif %}
+        {% endif %}
+
 
         {% if forloop.length > 1 %}
           {% if forloop.first == false %},&nbsp;{% endif %}
@@ -88,6 +95,9 @@
             {{ author.first }}
             {{ author.last }}
           {% endif %}
+        {% endif %}
+        {% if author_is_corr %}
+        *
         {% endif %}
       {% endfor %}
       {% assign more_authors = author_array_size | minus: author_array_limit %}
@@ -152,6 +162,12 @@
     <div class="periodical">
       {{ entry.note | strip }}
     </div>
+    {% if entry.award %}
+    {% assign cetificate = entry.certificate %}
+    <div class="award">
+      <a href="{{ cetificate | relative_url }}"><i class="fa-solid fa-trophy"></i> <b>{{ entry.award }}</b></a>
+    </div>
+    {% endif %}
 
     <!-- Links/Buttons -->
     <div class="links">
@@ -164,8 +180,10 @@
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
       {% endif %}
-      {% if entry.html %}
-        <a href="{{ entry.html }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
+      {% if entry.doi %}
+        <a href="https://doi.org/{{ entry.doi }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
+      {% elsif entry.html %}
+        <a href="{{ entry.html }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
       {% endif %}
       {% if entry.pdf %}
         {% if entry.pdf contains '://' %}
@@ -187,9 +205,6 @@
       {% if entry.blog %}
         <a href="{{ entry.blog }}" class="btn btn-sm z-depth-0" role="button">Blog</a>
       {% endif %}
-      {% if entry.code %}
-        <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">Code</a>
-      {% endif %}
       {% if entry.poster %}
         {% if entry.poster contains '://' %}
           <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
@@ -206,6 +221,9 @@
       {% endif %}
       {% if entry.website %}
         <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
+      {% endif %}
+      {% if entry.code %}
+        <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">Code</a>
       {% endif %}
     </div>
     {% if site.enable_publication_badges %}
