@@ -1,7 +1,7 @@
 ---
 layout: page
 title: BibFetcher
-description: Fetching BibTex from dblp with Title/Author Information Automatically. 
+description: Fetching BibTex from dblp with Title/Author Information Automatically.
 img: /assets/img/project/4/preview.png
 importance: 4
 category: tool
@@ -9,11 +9,12 @@ category: tool
 
 ### Why?
 
-Most researchers find it tedious to manually maintain a bibliography file when writing academic papers (at least my colleagues and I do). In particular, it requires frequent switching between the text editor, e.g., [Overleaf](https://www.overleaf.com/), and the online database, e.g., [DBLP](https://dblp.org/), to search for bibliography, with lots of clicking, copying and pasting. These repetitive operations are really time-consuming and unbearable. So why don't we automate this process? Just hand it over to the computer, and then we can focus on writing or even enjoy a coffee break! This is exactly what *BibFetcher* does.
+Most researchers find it tedious to manually maintain a bibliography file when writing academic papers (at least my colleagues and I do). In particular, it requires frequent switching between the text editor, e.g., [Overleaf](https://www.overleaf.com/), and the online database, e.g., [DBLP](https://dblp.org/), to search for bibliography, with lots of clicking, copying and pasting. These repetitive operations are really time-consuming and unbearable. So why don't we automate this process? Just hand it over to the computer, and then we can focus on writing or even enjoy a coffee break! This is exactly what _BibFetcher_ does.
 
 ### What?
 
-So, what specifically do we want *BibFetcher* to do? A coarse feature list is as follows:
+So, what specifically do we want _BibFetcher_ to do? A coarse feature list is as follows:
+
 1. <b>Automated Bibliography Retrieval</b>: Automatically fetch entries from online databases such as DBLP.
 2. <b>Customized Import</b>: Allow users to import their bibliography in editors with specified citation keys.
 3. <b>Export Options</b>: Provide options to export the bibliography in various formats for different document types.
@@ -32,11 +33,13 @@ Now, the question arises: how do we implement these features? Let's regard this 
 Specifically, we define the input as a json dict:
 
 {% raw %}
+
 ```json
 {
-    "citationkey": "title [author]"
+  "citationkey": "title [author]"
 }
 ```
+
 {% endraw %}
 
 The `citationkey` is used to specify index of references, enabling quick autocompletion in editors to browse references. The `title` is necessary for searching for the desired paper, while the `author` is optional and works only when addressing papers with highly similar titles.
@@ -45,10 +48,7 @@ The `citationkey` is used to specify index of references, enabling quick autocom
 
 DBLP stores several different types of publications:
 
-<div align="left">    
-    {% assign img_url = '/assets/img/project/4/dblp_type.png' %}
-    <img src="{{ img_url | relative_url }}" width="50%" align=center />
-</div>
+{% include figure.liquid path="assets/img/project/4/dblp_type.png" width="50%" %}
 
 Here we are mainly interested in the following three types:
 
@@ -90,22 +90,23 @@ We carefully address these issues through regular expressions, booktitle mapping
 
 We provide clear exception messages for not-found entries and check for missing fields in retrieved entries, all of which are recorded in a log file for post-processing.
 
-> To test *BibFetcher* and dicover potential failure cases, we search DBLP to construct a json file as test example, which includes publications of all the venues in the venue dict from 2020 to 2023, three entries per year.
-{: .block-warning }
+> To test _BibFetcher_ and dicover potential failure cases, we search DBLP to construct a json file as test example, which includes publications of all the venues in the venue dict from 2020 to 2023, three entries per year.
+> {: .block-warning }
 
 ### Who?
 
-With the well-implemented function $$f(x) \rightarrow y$$, any $$\LaTeX$$ and Microsoft Word user can employ *BibFetcher* to generate bibliography, e.g., given the citation key and query information:
+With the well-implemented function $$f(x) \rightarrow y$$, any $$\LaTeX$$ and Microsoft Word user can employ _BibFetcher_ to generate bibliography, e.g., given the citation key and query information:
 
 ```json
 {
-    "resnet": "Deep Residual Learning for Image Recognition, Kaiming He"
+  "resnet": "Deep Residual Learning for Image Recognition, Kaiming He"
 }
 ```
 
 export bibtex for $$\LaTeX$$ users:
 
 {% raw %}
+
 ```bibtex
 @inproceedings{resnet,
 	author= {Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun},
@@ -116,15 +117,15 @@ export bibtex for $$\LaTeX$$ users:
 	year= {2016},
 }
 ```
+
 {% endraw %}
 
 or text for Mircosoft Word users:
 
-> Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun, "Deep Residual Learning for Image Recognition", in *Proceedings of IEEE CVPR*, pp.770-778, Las Vegas, NV, USA, 2016.
+> Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun, "Deep Residual Learning for Image Recognition", in _Proceedings of IEEE CVPR_, pp.770-778, Las Vegas, NV, USA, 2016.
 
 ### Code
 
-
-We release *BibFecther* on [this GitHub repo](https://github.com/czyxm/BibFetcher). Please take a look and feel free to customize it!
+We release _BibFecther_ on [this GitHub repo](https://github.com/czyxm/BibFetcher). Please take a look and feel free to customize it!
 
 **Contributors**: [Meng Chen]({{ site.url }}) and [Kun Wang](https://github.com/kuang22)
