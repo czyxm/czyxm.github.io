@@ -5,7 +5,7 @@
     <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
-          <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+          <img width="auto" height="auto" class="preview z-depth-1 rounded" src="{{ entry.preview }}">
         {% else %}
           {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
           {%
@@ -96,7 +96,7 @@
           {% endif %}
         {% endif %}
         {% if author_is_corr %}
-        *
+          *
         {% endif %}
       {% endfor %}
       {% assign more_authors = author_array_size | minus: author_array_limit %}
@@ -162,10 +162,12 @@
       {{ entry.note | strip }}
     </div>
     {% if entry.award %}
-    {% assign cetificate = entry.certificate %}
-    <div class="award">
-      <a href="{{ cetificate | relative_url }}"><i class="fa-solid fa-trophy"></i> <b>{{ entry.award }}</b></a>
-    </div>
+      {% assign cetificate = entry.certificate %}
+      <div class="award">
+        <a href="{{ cetificate | relative_url }}"
+          ><i class="fa-solid fa-trophy"></i> <b>{{ entry.award }}</b></a
+        >
+      </div>
     {% endif %}
 
     <!-- Links/Buttons -->
