@@ -8,9 +8,11 @@ category: tool
 ---
 
 ### Why?
+
 Most researchers find it tedious to manually maintain a bibliography file when writing academic papers (at least my colleagues and I do). In particular, it requires frequent switching between the text editor, e.g., [Overleaf](https://www.overleaf.com/), and the online database, e.g., [DBLP](https://dblp.org/), to search for bibliography, with lots of clicking, copying and pasting. These repetitive operations are really time-consuming and unbearable. So why don't we automate this process? Just hand it over to the computer, and then we can focus on writing or even enjoy a coffee break! This is exactly what *BibFetcher* does.
 
 ### What?
+
 So, what specifically do we want *BibFetcher* to do? A coarse feature list is as follows:
 1. <b>Automated Bibliography Retrieval</b>: Automatically fetch entries from online databases such as DBLP.
 2. <b>Customized Import</b>: Allow users to import their bibliography in editors with specified citation keys.
@@ -22,9 +24,11 @@ So, what specifically do we want *BibFetcher* to do? A coarse feature list is as
 This project focuses on the core features (1~4) and leaves the additional ones (5 and 6) for future work.
 
 ### How?
+
 Now, the question arises: how do we implement these features? Let's regard this as a function: $$f(x) \rightarrow y$$, then deal with it step by step:
 
 ##### Step 1. Define the input $$x$$
+
 Specifically, we define the input as a json dict:
 
 {% raw %}
@@ -38,6 +42,7 @@ Specifically, we define the input as a json dict:
 The `citationkey` is used to specify index of references, enabling quick autocompletion in editors to browse references. The `title` is necessary for searching for the desired paper, while the `author` is optional and works only when addressing papers with highly similar titles.
 
 ##### Step 2. Define the output $$y$$
+
 DBLP stores several different types of publications:
 
 <div align="left">    
@@ -65,6 +70,7 @@ bib_item_dict = {
 ```
 
 ##### Step 3. Implement the funtion $$f(\cdot)$$
+
 To implement $$f(\cdot)$$, we investigate the [query API](https://dblp.org/faq/13501473.html) of DBLP. There are three major search services provided by dblp:
 
 - [https://dblp.org/search/publ/api](https://dblp.org/search/publ/api) for publication queries
@@ -81,12 +87,14 @@ We query the first API with the title and author information as query string thr
 We carefully address these issues through regular expressions, booktitle mapping, HTML parsing and CSS selection on the venue page, respectively. In addition, sometimes multiple bib entries are matched with one query. To ensure the correct bib is fetched, we allow users to manually select one of them by navigating the candidates or just keep it empty if none of them is desired.
 
 ##### Step 4. Handle the exception $$e$$
+
 We provide clear exception messages for not-found entries and check for missing fields in retrieved entries, all of which are recorded in a log file for post-processing.
 
 > To test *BibFetcher* and dicover potential failure cases, we search DBLP to construct a json file as test example, which includes publications of all the venues in the venue dict from 2020 to 2023, three entries per year.
 {: .block-warning }
 
 ### Who?
+
 With the well-implemented function $$f(x) \rightarrow y$$, any $$\LaTeX$$ and Microsoft Word user can employ *BibFetcher* to generate bibliography, e.g., given the citation key and query information:
 
 ```json
@@ -115,6 +123,8 @@ or text for Mircosoft Word users:
 > Kaiming He, Xiangyu Zhang, Shaoqing Ren and Jian Sun, "Deep Residual Learning for Image Recognition", in *Proceedings of IEEE CVPR*, pp.770-778, Las Vegas, NV, USA, 2016.
 
 ### Code
+
+
 We release *BibFecther* on [this GitHub repo](https://github.com/czyxm/BibFetcher). Please take a look and feel free to customize it!
 
 **Contributors**: [Meng Chen]({{ site.url }}) and [Kun Wang](https://github.com/kuang22)
