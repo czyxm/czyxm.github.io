@@ -6,7 +6,7 @@ subtitle:
 
 profile:
   align: left
-  image: profile.jpg
+  image: profile.png
   image_circular: true # crops the image to make it circular
   more_info: <small><i class="fa-solid fa-university"></i> Zhejiang University<br><i class="fa-solid fa-location-dot"></i> Hangzhou, China</small>
 
