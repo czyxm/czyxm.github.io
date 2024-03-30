@@ -2,8 +2,8 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 body {
-  font-family: Georgia, serif;
-  font-size: 1.1rem;
+  font-family: system-ui;
+  font-size: 1rem;
 }
 
 // Typography
@@ -38,7 +38,7 @@ hr {
 table {
   td,
   th {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   th {
@@ -188,6 +188,10 @@ blockquote {
 }
 
 // Profile
+
+.clearfix > p {
+  text-align: justify;
+}
 
 .profile {
   width: 100%;
@@ -737,7 +741,6 @@ footer.sticky-bottom {
 
       .title {
         font-weight: bolder;
-        color: var(--global-theme-color) !important;
       }
 
       .author {
@@ -785,7 +788,6 @@ footer.sticky-bottom {
           &:hover {
             color: var(--global-theme-color);
             border-color: var(--global-theme-color);
-            background-color: var(--global-hover-color-light);
           }
         }
       }
